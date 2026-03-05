@@ -17,6 +17,7 @@ export default defineConfig(({ mode }) => {
       exclude: ['node_modules'],
     },
     server: {
+      port: 5173,
       hmr: {
         overlay: false
       }
