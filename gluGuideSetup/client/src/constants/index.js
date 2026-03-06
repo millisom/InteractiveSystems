@@ -47,6 +47,52 @@ export const UI_CONFIG = {
     slow: 500,
   },
   
+  // Layout Configuration
+  LAYOUT: {
+    navbar: {
+      height: 'h-16',
+      background: 'bg-secondary-dark',
+      position: 'sticky top-0 left-0 w-full',
+      zIndex: 'z-50',
+      padding: 'px-5 py-3',
+      shadow: 'shadow-wcag',
+    },
+    footer: {
+      height: 'h-20',
+      background: 'bg-secondary-medium',
+      position: 'fixed bottom-0 left-0 right-0',
+      zIndex: 'z-40',
+      padding: 'px-4 py-4',
+      shadow: 'shadow-lg border-t border-secondary-dark',
+    },
+    main: {
+      padding: 'pb-20 mb-4',
+      minHeight: 'min-h-screen',
+      background: 'bg-primary-light',
+    },
+    container: {
+      maxWidth: 'max-w-6xl',
+      margin: 'mx-auto',
+      padding: 'px-4',
+    },
+  },
+  
+  // Typography
+  TYPOGRAPHY: {
+    fontFamily: "'DM Sans', sans-serif",
+    headings: {
+      h1: 'text-4xl lg:text-5xl font-bold text-text-primary',
+      h2: 'text-3xl font-bold text-text-primary',
+      h3: 'text-2xl font-semibold text-text-primary',
+      h4: 'text-xl font-semibold text-text-primary',
+    },
+    body: {
+      base: 'text-text-secondary',
+      large: 'text-lg text-text-secondary',
+      small: 'text-sm text-text-secondary',
+    },
+  },
+  
   // Common spacing values
   SPACING: {
     xs: '0.25rem',    // 4px
@@ -241,6 +287,39 @@ export const DATE_FORMATS = {
   ISO: 'yyyy-MM-dd',              // 2024-01-01
 };
 
+// Common CSS Class Combinations
+export const COMMON_CLASSES = {
+  // Flexbox utilities
+  FLEX_CENTER: 'flex items-center justify-center',
+  FLEX_BETWEEN: 'flex items-center justify-between',
+  FLEX_START: 'flex items-center justify-start',
+  FLEX_COL_CENTER: 'flex flex-col items-center justify-center',
+  
+  // Grid utilities
+  GRID_COLS_1: 'grid grid-cols-1',
+  GRID_COLS_2: 'grid grid-cols-2',
+  GRID_COLS_3: 'grid grid-cols-3',
+  GRID_COLS_4: 'grid grid-cols-4',
+  
+  // Common button styles
+  BUTTON_BASE: 'px-4 py-2 rounded-md font-medium transition-colors duration-300 focus:outline-none focus:ring-2 focus:ring-offset-2',
+  
+  // Common input styles
+  INPUT_BASE: 'w-full px-3 py-2 border rounded-md transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-offset-0',
+  
+  // Common card styles
+  CARD_BASE: 'bg-background-primary rounded-lg shadow-wcag overflow-hidden',
+  
+  // Common text styles
+  TEXT_HEADING: 'font-bold text-text-primary',
+  TEXT_BODY: 'text-text-secondary',
+  TEXT_MUTED: 'text-text-tertiary',
+  
+  // Hover and focus states
+  HOVER_LIFT: 'transition-transform duration-200 hover:transform hover:-translate-y-1',
+  FOCUS_RING: 'focus:ring-2 focus:ring-primary-500 focus:ring-offset-2',
+};
+
 
 export default {
   API_CONFIG,
@@ -256,4 +335,5 @@ export default {
   SUCCESS_MESSAGES,
   UPLOAD_CONFIG,
   DATE_FORMATS,
+  COMMON_CLASSES,
 };
