@@ -287,6 +287,50 @@ export const DATE_FORMATS = {
   ISO: 'yyyy-MM-dd',              // 2024-01-01
 };
 
+// WCAG and Accessibility Constants
+export const ACCESSIBILITY = {
+  // ARIA Labels and Descriptions
+  ARIA: {
+    REQUIRED_FIELD: 'required field',
+    LOADING: 'Loading content, please wait',
+    ERROR_MESSAGE: 'Error message',
+    SUCCESS_MESSAGE: 'Success message',
+    NAVIGATION: 'Main navigation',
+    SEARCH: 'Search',
+    CLOSE: 'Close',
+    MENU: 'Menu',
+    PROFILE_PICTURE: 'Profile picture',
+    EDIT: 'Edit',
+    DELETE: 'Delete',
+    SAVE: 'Save',
+    CANCEL: 'Cancel',
+  },
+  
+  // Color Contrast Ratios (WCAG AA compliant)
+  CONTRAST: {
+    NORMAL_AA: '4.5:1',     // Normal text AA
+    LARGE_AA: '3:1',        // Large text AA
+    NORMAL_AAA: '7:1',      // Normal text AAA
+    LARGE_AAA: '4.5:1',     // Large text AAA
+  },
+  
+  // Focus management
+  FOCUS: {
+    RING_WIDTH: '2px',
+    RING_OFFSET: '2px',
+    RING_COLOR: '#3b82f6',
+  },
+  
+  // Screen reader utilities
+  SR_ONLY: 'sr-only',
+  
+  // Minimum touch targets (ISO 9241-11)
+  TOUCH_TARGET: {
+    MIN_SIZE: '44px',       // Minimum 44x44px
+    RECOMMENDED: '48px',     // Recommended 48x48px
+  },
+};
+
 // Common CSS Class Combinations
 export const COMMON_CLASSES = {
   // Flexbox utilities
@@ -317,7 +361,73 @@ export const COMMON_CLASSES = {
   
   // Hover and focus states
   HOVER_LIFT: 'transition-transform duration-200 hover:transform hover:-translate-y-1',
-  FOCUS_RING: 'focus:ring-2 focus:ring-primary-500 focus:ring-offset-2',
+  FOCUS_RING: 'focus:ring-2 focus:ring-secondary-dark focus:ring-offset-2',
+};
+
+// Color Definitions for WCAG Compliance
+export const COLORS = {
+  // Primary colors
+  PRIMARY: {
+    DEFAULT: '#FFF2E0',
+    LIGHT: '#FFFAF5',
+    DARK: '#E5D4BC',
+  },
+  
+  // Secondary colors  
+  SECONDARY: {
+    DEFAULT: '#898AC4',
+    LIGHT: '#C0C9EE',
+    MEDIUM: '#A2AADB', 
+    DARK: '#6B6C9A',
+    DARKER: '#5A5B84',
+  },
+  
+  // Background colors
+  BACKGROUND: {
+    PRIMARY: '#FFFFFF',
+    SECONDARY: '#F9FAFB',
+    LIGHT: '#FFFAF5',
+  },
+  
+  // Text colors
+  TEXT: {
+    PRIMARY: '#000000',
+    SECONDARY: '#374151',
+    TERTIARY: '#6B7280',
+    LIGHT: '#FFF2E0',
+  },
+  
+  // Border colors
+  BORDER: {
+    DEFAULT: '#A2AADB',
+    LIGHT: '#C0C9EE',
+    DARK: '#898AC4',
+  },
+  
+  // Semantic colors - WCAG AA compliant
+  SUCCESS: {
+    DEFAULT: '#10B981',
+    DARK: '#047857',
+    LIGHT: '#D1FAE5',
+  },
+  
+  WARNING: {
+    DEFAULT: '#F59E0B',
+    DARK: '#D97706', 
+    LIGHT: '#FEF3C7',
+  },
+  
+  ERROR: {
+    DEFAULT: '#EF4444',
+    DARK: '#DC2626',
+    LIGHT: '#FEE2E2',
+  },
+  
+  INFO: {
+    DEFAULT: '#3B82F6',
+    DARK: '#1D4ED8',
+    LIGHT: '#DBEAFE',
+  },
 };
 
 
@@ -336,4 +446,6 @@ export default {
   UPLOAD_CONFIG,
   DATE_FORMATS,
   COMMON_CLASSES,
+  COLORS,
+  ACCESSIBILITY,
 };

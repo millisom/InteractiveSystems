@@ -14,19 +14,23 @@ export default {
           DEFAULT: '#898AC4',
           light: '#C0C9EE',
           medium: '#A2AADB',
-          dark: '#898AC4',
+          dark: '#6B6C9A',
+          darker: '#5A5B84',
         },
         background: {
           primary: '#FFFFFF',
+          secondary: '#F9FAFB',
         },
         text: {
           primary: '#000000',
           secondary: '#374151',
+          tertiary: '#6B7280',
           light: '#FFF2E0',
         },
         border: {
           light: '#C0C9EE',
           DEFAULT: '#A2AADB',
+          dark: '#898AC4',
         },
         // Semantic colors - WCAG AA and ISO compliant
         success: {

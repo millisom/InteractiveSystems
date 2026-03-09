@@ -232,7 +232,7 @@ const AboutUs = () => {
                 </section>
 
                 {/* Closing Section */}
-                <section className="text-center bg-background-primary rounded-2xl p-12 border border-border-light">
+                <section className="text-center bg-background-primary rounded-2xl p-12 border border-border-light shadow-wcag">
                     <h2 className={`${UI_CONFIG.TYPOGRAPHY.headings.h2} mb-6`}>
                         Join Our Journey
                     </h2>
