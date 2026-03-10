@@ -1,7 +1,7 @@
 import { useEffect, useState } from 'react';
 import parse from 'html-react-parser';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
-import { faEdit, faTrashAlt, faSave, faTimes, faSignOutAlt, faBlog, faUtensils, faBookOpen, faPlusCircle, faFileAlt, faUser, faCamera, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
+import { faEdit, faTrashAlt, faSave, faTimes, faBlog, faUtensils, faBookOpen, faPlusCircle, faFileAlt, faUser, faCamera, faExclamationTriangle } from '@fortawesome/free-solid-svg-icons';
 import { useNavigate } from 'react-router-dom';
 import axiosInstance from '../api/axiosConfig';
 import ReactQuill from 'react-quill';
@@ -293,84 +293,116 @@ const ProfileCard = () => {
       )}
 
       {/* Main Dashboard Grid */}
-      <div className="grid lg:grid-cols-2 gap-6">
-        {/* Quick Actions Card */}
-        <article className={`${COMMON_CLASSES.CARD_BASE} p-6`}>
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-8 bg-info-light rounded-lg flex items-center justify-center">
-              <svg className="w-5 h-5 text-info-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-              </svg>
+      <div className="grid lg:grid-cols-2 gap-6 items-start">
+        {/* Left Column - Quick Navigation and Account Settings */}
+        <div className="space-y-6">
+          {/* Quick Actions Card */}
+          <article className={`${COMMON_CLASSES.CARD_BASE} p-6`}>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-8 bg-secondary-light rounded-lg flex items-center justify-center">
+                <svg className="w-5 h-5 text-secondary-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                </svg>
+              </div>
+              <h2 id="quick-nav-heading" className={`${UI_CONFIG.TYPOGRAPHY.headings.h3} mb-0`}>
+                Quick Navigation
+              </h2>
             </div>
-            <h2 id="quick-nav-heading" className={`${UI_CONFIG.TYPOGRAPHY.headings.h3} mb-0`}>
-              Quick Navigation
-            </h2>
-          </div>
-          
-          <div className="grid grid-cols-2 gap-3" role="navigation" aria-labelledby="quick-nav-heading">
-            {/* My Blogs Navigation */}
-            <button
-              onClick={() => navigate('/myBlogs')}
-              className="group flex flex-col items-center p-4 text-center bg-gradient-to-br from-secondary-light to-secondary-medium hover:from-secondary-medium hover:to-secondary-dark border-2 border-secondary-light hover:border-secondary rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 min-h-[100px] transform hover:scale-105 active:scale-95"
-              type="button"
-            >
-              <div className="w-8 h-8 bg-secondary-medium group-hover:bg-secondary rounded-lg flex items-center justify-center mb-2 transition-colors duration-300">
-                <svg className="w-4 h-4 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+            
+            <div className="grid grid-cols-2 gap-3" role="navigation" aria-labelledby="quick-nav-heading">
+              {/* My Blogs Navigation */}
+              <button
+                onClick={() => navigate('/myBlogs')}
+                className="group flex flex-col items-center p-4 text-center bg-gradient-to-br from-secondary-light to-secondary-medium hover:from-secondary-medium hover:to-secondary-dark border-2 border-secondary-light hover:border-secondary rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 min-h-[100px] transform hover:scale-105 active:scale-95"
+                type="button"
+              >
+                <div className="w-8 h-8 bg-secondary-medium group-hover:bg-secondary rounded-lg flex items-center justify-center mb-2 transition-colors duration-300">
+                  <svg className="w-4 h-4 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                  </svg>
+                </div>
+                <h3 className="font-semibold text-secondary-darker text-sm mb-1">My Blogs</h3>
+                <p className="text-xs text-secondary-dark group-hover:text-secondary-darker">Write & manage</p>
+              </button>
+
+              {/* Log Meal Navigation */}
+              <button
+                onClick={() => navigate('/logMeal')}
+                className="group flex flex-col items-center p-4 text-center bg-gradient-to-br from-secondary-light to-secondary-medium hover:from-secondary-medium hover:to-secondary-dark border-2 border-secondary-light hover:border-secondary rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 min-h-[100px] transform hover:scale-105 active:scale-95"
+                type="button"
+              >
+                <div className="w-8 h-8 bg-secondary-medium group-hover:bg-secondary rounded-lg flex items-center justify-center mb-2 transition-colors duration-300">
+                  <svg className="w-4 h-4 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  </svg>
+                </div>
+                <h3 className="font-semibold text-secondary-darker text-sm mb-1">Log Meal</h3>
+                <p className="text-xs text-secondary-dark group-hover:text-secondary-darker">Track nutrition</p>
+              </button>
+
+              {/* Meals Overview Navigation */}
+              <button
+                onClick={() => navigate('/mealsOverview')}
+                className="group flex flex-col items-center p-4 text-center bg-gradient-to-br from-secondary-light to-secondary-medium hover:from-secondary-medium hover:to-secondary-dark border-2 border-secondary-light hover:border-secondary rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 min-h-[100px] transform hover:scale-105 active:scale-95"
+                type="button"
+              >
+                <div className="w-8 h-8 bg-secondary-medium group-hover:bg-secondary rounded-lg flex items-center justify-center mb-2 transition-colors duration-300">
+                  <svg className="w-4 h-4 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                  </svg>
+                </div>
+                <h3 className="font-semibold text-secondary-darker text-sm mb-1">Overview</h3>
+                <p className="text-xs text-secondary-dark group-hover:text-secondary-darker">Review history</p>
+              </button>
+
+              {/* Recipes Navigation */}
+              <button
+                onClick={() => navigate('/Recipes')}
+                className="group flex flex-col items-center p-4 text-center bg-gradient-to-br from-secondary-light to-secondary-medium hover:from-secondary-medium hover:to-secondary-dark border-2 border-secondary-light hover:border-secondary rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 min-h-[100px] transform hover:scale-105 active:scale-95"
+                type="button"
+              >
+                <div className="w-8 h-8 bg-secondary-medium group-hover:bg-secondary rounded-lg flex items-center justify-center mb-2 transition-colors duration-300">
+                  <svg className="w-4 h-4 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                </div>
+                <h3 className="font-semibold text-secondary-darker text-sm mb-1">Recipes</h3>
+                <p className="text-xs text-secondary-dark group-hover:text-secondary-darker">Discover meals</p>
+              </button>
+            </div>
+          </article>
+
+          {/* Account Settings Card */}
+          <article className={`${COMMON_CLASSES.CARD_BASE} p-6`}>
+            <div className="flex items-center gap-3 mb-6">
+              <div className="w-8 h-8 bg-secondary-light rounded-lg flex items-center justify-center">
+                <svg className="w-5 h-5 text-secondary-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
                 </svg>
               </div>
-              <h3 className="font-semibold text-secondary-darker text-sm mb-1">My Blogs</h3>
-              <p className="text-xs text-secondary-dark group-hover:text-secondary-darker">Write & manage</p>
-            </button>
+              <h2 className={`${UI_CONFIG.TYPOGRAPHY.headings.h3} mb-0`}>Account Settings</h2>
+            </div>
+            
+            <div className="space-y-3">
+              <button 
+                onClick={handleDeleteAccount}
+                className="w-full flex items-center gap-3 p-4 text-left text-error-dark hover:bg-error-light border-2 border-error-light hover:border-error rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-error focus:ring-offset-2 transform hover:scale-105"
+                type="button"
+              >
+                <div className="w-10 h-10 bg-error rounded-lg flex items-center justify-center">
+                  <FontAwesomeIcon icon={faTrashAlt} className="text-white" />
+                </div>
+                <div className="flex-1">
+                  <span className="text-sm font-semibold text-error-dark">Delete Account</span>
+                  <p className="text-xs text-error">Permanently remove your account</p>
+                </div>
+              </button>
+            </div>
+          </article>
+        </div>
 
-            {/* Log Meal Navigation */}
-            <button
-              onClick={() => navigate('/logMeal')}
-              className="group flex flex-col items-center p-4 text-center bg-gradient-to-br from-secondary-light to-secondary-medium hover:from-secondary-medium hover:to-secondary-dark border-2 border-secondary-light hover:border-secondary rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 min-h-[100px] transform hover:scale-105 active:scale-95"
-              type="button"
-            >
-              <div className="w-8 h-8 bg-secondary-medium group-hover:bg-secondary rounded-lg flex items-center justify-center mb-2 transition-colors duration-300">
-                <svg className="w-4 h-4 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                </svg>
-              </div>
-              <h3 className="font-semibold text-secondary-darker text-sm mb-1">Log Meal</h3>
-              <p className="text-xs text-secondary-dark group-hover:text-secondary-darker">Track nutrition</p>
-            </button>
-
-            {/* Meals Overview Navigation */}
-            <button
-              onClick={() => navigate('/mealsOverview')}
-              className="group flex flex-col items-center p-4 text-center bg-gradient-to-br from-secondary-light to-secondary-medium hover:from-secondary-medium hover:to-secondary-dark border-2 border-secondary-light hover:border-secondary rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 min-h-[100px] transform hover:scale-105 active:scale-95"
-              type="button"
-            >
-              <div className="w-8 h-8 bg-secondary-medium group-hover:bg-secondary rounded-lg flex items-center justify-center mb-2 transition-colors duration-300">
-                <svg className="w-4 h-4 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                </svg>
-              </div>
-              <h3 className="font-semibold text-secondary-darker text-sm mb-1">Overview</h3>
-              <p className="text-xs text-secondary-dark group-hover:text-secondary-darker">Review history</p>
-            </button>
-
-            {/* Recipes Navigation */}
-            <button
-              onClick={() => navigate('/Recipes')}
-              className="group flex flex-col items-center p-4 text-center bg-gradient-to-br from-secondary-light to-secondary-medium hover:from-secondary-medium hover:to-secondary-dark border-2 border-secondary-light hover:border-secondary rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 min-h-[100px] transform hover:scale-105 active:scale-95"
-              type="button"
-            >
-              <div className="w-8 h-8 bg-secondary-medium group-hover:bg-secondary rounded-lg flex items-center justify-center mb-2 transition-colors duration-300">
-                <svg className="w-4 h-4 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                </svg>
-              </div>
-              <h3 className="font-semibold text-secondary-darker text-sm mb-1">Recipes</h3>
-              <p className="text-xs text-secondary-dark group-hover:text-secondary-darker">Discover meals</p>
-            </button>
-          </div>
-        </article>
-
-        {/* Profile & About Me Combined Card */}
+        {/* Right Column - Profile & About Me */}
         <article className={`${COMMON_CLASSES.CARD_BASE} p-6`} aria-labelledby="profile-bio-heading">
           {/* Profile Header with Picture and Name */}
           <div className="flex items-start gap-4 mb-6">
@@ -408,21 +440,70 @@ const ProfileCard = () => {
                     {APP_CONFIG.NAME} Member
                   </p>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          {/* Profile Picture Edit Controls */}
+          {isEditingDp && (
+            <div className="mt-4 space-y-4 p-4 bg-background-secondary rounded-lg border border-border-light" role="dialog" aria-labelledby="edit-dp-title">
+              <h3 id="edit-dp-title" className={`${UI_CONFIG.TYPOGRAPHY.headings.h4} text-center text-text-primary`}>
+                Update Profile Picture
+              </h3>
+              
+              <fieldset className="space-y-3">
+                <legend className="sr-only">Choose new profile picture</legend>
+                <div className="space-y-2">
+                  <label htmlFor="profile-picture-upload" className="block text-sm font-semibold text-text-primary">
+                    Choose new profile picture
+                  </label>
+                  <input 
+                    id="profile-picture-upload"
+                    type="file" 
+                    onChange={handleFileChange} 
+                    accept="image/jpeg,image/png,image/webp,image/gif" 
+                    className={`${COMMON_CLASSES.INPUT_BASE} text-xs file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:font-medium file:bg-secondary-light file:text-secondary-dark hover:file:bg-secondary-medium`}
+                    disabled={isUploading}
+                    aria-describedby="file-requirements"
+                  />
+                  <p id="file-requirements" className="text-xs text-text-tertiary">
+                    Max 5MB, JPEG/PNG/WebP/GIF
+                  </p>
+                </div>
+              </fieldset>
+              
+              <div className="flex gap-2 justify-center" role="group" aria-label="Profile picture actions">
+                <button 
+                  onClick={handleSaveDp} 
+                  disabled={!selectedDpFile || isUploading}
+                  className="bg-success hover:bg-success-dark disabled:bg-text-tertiary text-white text-xs px-4 py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-success focus:ring-offset-2 font-semibold"
+                  type="button"
+                >
+                  {isUploading ? 'Saving...' : 'Save'}
+                </button>
                 
-                {!isEditingBio && (
+                <button 
+                  onClick={handleCancelDpEdit}
+                  disabled={isUploading}
+                  className="bg-text-secondary hover:bg-text-primary text-white text-xs px-4 py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-text-secondary focus:ring-offset-2 font-semibold"
+                  type="button"
+                >
+                  Cancel
+                </button>
+                
+                {dpUrl && (
                   <button 
-                    onClick={handleBioEditToggle}
-                    className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-background-secondary rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 min-w-[44px] min-h-[44px]"
-                    aria-label="Edit bio section"
+                    onClick={handleDeleteDp} 
+                    disabled={isUploading}
+                    className="bg-error hover:bg-error-dark text-white text-xs px-4 py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-error focus:ring-offset-2 font-semibold"
                     type="button"
                   >
-                    <FontAwesomeIcon icon={faEdit} className="text-sm" aria-hidden="true" />
-                    Edit
+                    Delete
                   </button>
                 )}
               </div>
             </div>
-          </div>
+          )}
 
           {/* About Me Bio Section */}
           <div className="mt-8 pt-6 border-t border-border-light">
@@ -540,132 +621,39 @@ const ProfileCard = () => {
               <h3 className={`${UI_CONFIG.TYPOGRAPHY.headings.h4} text-text-primary mb-0`}>My Activity</h3>
             </div>
             
-            <div className="grid grid-cols-3 gap-3">
-              <div className="text-center p-3 bg-gradient-to-br from-secondary-light to-secondary-medium border-2 border-secondary-light hover:border-secondary rounded-xl transition-all duration-300">
-                <div className="text-lg font-bold text-secondary-darker mb-1">12</div>
-                <div className="text-xs text-secondary-dark">Blog Posts</div>
-              </div>
-              
-              <div className="text-center p-3 bg-gradient-to-br from-secondary-light to-secondary-medium border-2 border-secondary-light hover:border-secondary rounded-xl transition-all duration-300">
-                <div className="text-lg font-bold text-secondary-darker mb-1">156</div>
-                <div className="text-xs text-secondary-dark">Meals Logged</div>
-              </div>
-              
-              <div className="text-center p-3 bg-gradient-to-br from-secondary-light to-secondary-medium border-2 border-secondary-light hover:border-secondary rounded-xl transition-all duration-300">
-                <div className="text-lg font-bold text-secondary-darker mb-1">8</div>
-                <div className="text-xs text-secondary-dark">Recipes</div>
-              </div>
-            </div>
-          </div>
-          
-          {/* Profile Picture Edit Controls */}
-          {isEditingDp && (
-            <div className="mt-6 pt-6 border-t border-border-light space-y-4 p-4 bg-background-secondary rounded-lg" role="dialog" aria-labelledby="edit-dp-title">
-              <h3 id="edit-dp-title" className={`${UI_CONFIG.TYPOGRAPHY.headings.h4} text-center`}>
-                Update Profile Picture
-              </h3>
-              
-              <fieldset className="space-y-3">
-                <legend className="sr-only">Choose new profile picture</legend>
-                <div className="space-y-2">
-                  <label htmlFor="profile-picture-upload" className="block text-sm font-semibold text-text-primary">
-                    Choose new profile picture
-                  </label>
-                  <input 
-                    id="profile-picture-upload"
-                    type="file" 
-                    onChange={handleFileChange} 
-                    accept="image/jpeg,image/png,image/webp,image/gif" 
-                    className={`${COMMON_CLASSES.INPUT_BASE} text-xs file:mr-2 file:py-1 file:px-2 file:rounded file:border-0 file:text-xs file:font-medium file:bg-secondary-light file:text-secondary-dark hover:file:bg-secondary-medium`}
-                    disabled={isUploading}
-                    aria-describedby="file-requirements"
-                  />
-                  <p id="file-requirements" className="text-xs text-text-tertiary">
-                    Max 5MB, JPEG/PNG/WebP/GIF
-                  </p>
+            <div className="grid grid-cols-3 gap-4">
+              <div className="text-center p-4 bg-background-secondary border border-border-light rounded-lg shadow-sm">
+                <div className="w-10 h-10 bg-info-light rounded-full flex items-center justify-center mx-auto mb-3">
+                  <svg className="w-5 h-5 text-info-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                  </svg>
                 </div>
-              </fieldset>
+                <div className="text-2xl font-bold text-text-primary mb-1">12</div>
+                <div className="text-sm text-text-secondary font-medium">Blog Posts</div>
+              </div>
               
-              <div className="flex gap-2 justify-center" role="group" aria-label="Profile picture actions">
-                <button 
-                  onClick={handleSaveDp} 
-                  disabled={!selectedDpFile || isUploading}
-                  className="bg-success hover:bg-success-dark disabled:bg-text-tertiary text-white text-xs px-3 py-2 rounded transition-colors focus:outline-none focus:ring-2 focus:ring-success focus:ring-offset-2"
-                  type="button"
-                >
-                  {isUploading ? 'Saving...' : 'Save'}
-                </button>
-                
-                <button 
-                  onClick={handleCancelDpEdit}
-                  disabled={isUploading}
-                  className="bg-text-secondary hover:bg-text-primary text-white text-xs px-3 py-2 rounded transition-colors focus:outline-none focus:ring-2 focus:ring-text-secondary focus:ring-offset-2"
-                  type="button"
-                >
-                  Cancel
-                </button>
-                
-                {dpUrl && (
-                  <button 
-                    onClick={handleDeleteDp} 
-                    disabled={isUploading}
-                    className="bg-error hover:bg-error-dark text-white text-xs px-3 py-2 rounded transition-colors focus:outline-none focus:ring-2 focus:ring-error focus:ring-offset-2"
-                    type="button"
-                  >
-                    Delete
-                  </button>
-                )}
+              <div className="text-center p-4 bg-background-secondary border border-border-light rounded-lg shadow-sm">
+                <div className="w-10 h-10 bg-success-light rounded-full flex items-center justify-center mx-auto mb-3">
+                  <svg className="w-5 h-5 text-success-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                  </svg>
+                </div>
+                <div className="text-2xl font-bold text-text-primary mb-1">156</div>
+                <div className="text-sm text-text-secondary font-medium">Meals Logged</div>
+              </div>
+              
+              <div className="text-center p-4 bg-background-secondary border border-border-light rounded-lg shadow-sm">
+                <div className="w-10 h-10 bg-warning-light rounded-full flex items-center justify-center mx-auto mb-3">
+                  <svg className="w-5 h-5 text-warning-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                  </svg>
+                </div>
+                <div className="text-2xl font-bold text-text-primary mb-1">8</div>
+                <div className="text-sm text-text-secondary font-medium">Recipes</div>
               </div>
             </div>
-          )}
-        </article>
-
-        {/* Account Actions Card */}
-        <article className={`${COMMON_CLASSES.CARD_BASE} p-6`}>
-          <div className="flex items-center gap-3 mb-6">
-            <div className="w-8 h-8 bg-error-light rounded-lg flex items-center justify-center">
-              <svg className="w-5 h-5 text-error-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-              </svg>
-            </div>
-            <h2 className={`${UI_CONFIG.TYPOGRAPHY.headings.h3} mb-0`}>Account Settings</h2>
-          </div>
-          
-          <div className="space-y-3">
-            <button 
-              onClick={() => navigate('/logout')}
-              className="w-full flex items-center gap-3 p-4 text-left text-text-primary hover:bg-secondary-light border-2 border-secondary-light hover:border-secondary rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 transform hover:scale-105"
-              type="button"
-            >
-              <div className="w-10 h-10 bg-secondary-medium rounded-lg flex items-center justify-center">
-                <FontAwesomeIcon icon={faSignOutAlt} className="text-secondary-darker" />
-              </div>
-              <div className="flex-1">
-                <span className="text-sm font-semibold text-secondary-darker">Sign Out</span>
-                <p className="text-xs text-secondary-dark">End your current session</p>
-              </div>
-            </button>
-            
-            <button 
-              onClick={handleDeleteAccount}
-              className="w-full flex items-center gap-3 p-4 text-left text-error-dark hover:bg-error-light border-2 border-error-light hover:border-error rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-error focus:ring-offset-2 transform hover:scale-105"
-              type="button"
-            >
-              <div className="w-10 h-10 bg-error rounded-lg flex items-center justify-center">
-                <FontAwesomeIcon icon={faTrashAlt} className="text-white" />
-              </div>
-              <div className="flex-1">
-                <span className="text-sm font-semibold text-error-dark">Delete Account</span>
-                <p className="text-xs text-error">Permanently remove your account</p>
-              </div>
-            </button>
           </div>
         </article>
-      </div>
-
-      {/* Bio and Activity Section */}
-      <div className="grid lg:grid-cols-1 gap-6">
       </div>
     </div>
   );
