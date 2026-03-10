@@ -30,6 +30,12 @@ const ProfileCard = () => {
   const [previewDp, setPreviewDp] = useState(null);
   const [isUploading, setIsUploading] = useState(false);
   const [bioCharCount, setBioCharCount] = useState(0);
+  const [glucoseStats, setGlucoseStats] = useState({
+    average: 0,
+    lastReading: 0,
+    timeInRange: 0,
+    totalReadings: 0
+  });
   const navigate = useNavigate();
 
   const maxBioLength = 500;
@@ -37,6 +43,53 @@ const ProfileCard = () => {
   // Auto-dismiss messages using universal hook
   useAutoDismiss(error, setError, NOTIFICATIONS.TYPES.ERROR);
   useAutoDismiss(successMessage, setSuccessMessage, NOTIFICATIONS.TYPES.SUCCESS);
+
+  // Fetch glucose statistics
+  useEffect(() => {
+    const fetchGlucoseStats = async () => {
+      try {
+        // Get current user ID
+        const userResponse = await axiosInstance.get('/currentUser', { withCredentials: true });
+        const userId = userResponse.data.userId;
+        
+        // Fetch recent glucose logs (last month if available, otherwise all)
+        const response = await axiosInstance.get(`/glucose/${userId}`, {
+          params: { filter: '3months' },
+          withCredentials: true,
+        });
+        
+        const logs = response.data || [];
+        
+        if (logs.length > 0) {
+          // Calculate average glucose
+          const average = logs.reduce((sum, log) => sum + parseFloat(log.glucose_level), 0) / logs.length;
+          
+          // Get last reading (most recent)
+          const sortedLogs = logs.sort((a, b) => new Date(b.date + ' ' + b.time) - new Date(a.date + ' ' + a.time));
+          const lastReading = parseFloat(sortedLogs[0].glucose_level);
+          
+          // Calculate time in range (70-180 mg/dL is typical target range)
+          const inRangeCount = logs.filter(log => {
+            const level = parseFloat(log.glucose_level);
+            return level >= 70 && level <= 180;
+          }).length;
+          const timeInRange = (inRangeCount / logs.length) * 100;
+          
+          setGlucoseStats({
+            average: Math.round(average),
+            lastReading: Math.round(lastReading),
+            timeInRange: Math.round(timeInRange),
+            totalReadings: logs.length
+          });
+        }
+      } catch (error) {
+        console.error('Failed to fetch glucose statistics:', error);
+        // Keep default values if fetch fails
+      }
+    };
+    
+    fetchGlucoseStats();
+  }, []);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -359,7 +412,7 @@ const ProfileCard = () => {
                 >
                   <div className="w-10 h-10 bg-secondary-medium group-hover:bg-secondary rounded-lg flex items-center justify-center transition-colors duration-300 flex-shrink-0">
                     <svg className="w-5 h-5 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5H7a2 2 0 00-2 2v10a2 2 0 002 2h8a2 2 0 002-2V7a2 2 0 00-2-2h-2M9 5a2 2 0 002 2h2a2 2 0 002-2M9 5a2 2 0 012-2h2a2 2 0 012 2" />
                     </svg>
                   </div>
                   <div>
@@ -382,6 +435,24 @@ const ProfileCard = () => {
                   <div>
                     <h3 className="font-semibold text-secondary-darker text-sm mb-1">Recipes</h3>
                     <p className="text-xs text-secondary-dark group-hover:text-secondary-darker">Discover meals</p>
+                  </div>
+                </button>
+
+                {/* Glucose Tracking Navigation */}
+                <button
+                  onClick={() => navigate('/')}
+                  className="w-full group flex items-center gap-4 p-4 text-left bg-gradient-to-r from-secondary-light/50 to-transparent hover:from-secondary-light hover:to-secondary-light/50 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-1"
+                  type="button"
+                >
+                  <div className="w-10 h-10 bg-secondary-medium group-hover:bg-secondary rounded-lg flex items-center justify-center transition-colors duration-300 flex-shrink-0">
+                    <svg className="w-5 h-5 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={1.5} d="M9 12l2 2 4-4" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-secondary-darker text-sm mb-1">Glucose Tracking</h3>
+                    <p className="text-xs text-secondary-dark group-hover:text-secondary-darker">Monitor blood glucose</p>
                   </div>
                 </button>
               </div>
@@ -522,14 +593,14 @@ const ProfileCard = () => {
           )}
 
           {/* About Me Bio Section */}
-          <div className="mt-8 pt-6 border-t border-border-light">
+          <div className="mt-8 p-5 bg-background-secondary border border-border-light rounded-xl shadow-sm">
             {isEditingBio ? (
               <div className="space-y-6">
                 <div className="flex items-center gap-3 mb-6">
-                  <div className="w-8 h-8 bg-secondary-light rounded-lg flex items-center justify-center">
+                  <div className="w-8 h-8 bg-secondary-medium rounded-lg flex items-center justify-center">
                     <FontAwesomeIcon icon={faUser} className="text-secondary-darker text-sm" aria-hidden="true" />
                   </div>
-                  <h2 id="profile-bio-heading" className={`${UI_CONFIG.TYPOGRAPHY.headings.h3} text-text-primary mb-0`}>
+                  <h2 id="profile-bio-heading" className={`${UI_CONFIG.TYPOGRAPHY.headings.h4} text-text-primary mb-0`}>
                     About Me
                   </h2>
                 </div>
@@ -581,10 +652,10 @@ const ProfileCard = () => {
               <div className="space-y-4">
                 <div className="flex items-center justify-between mb-6">
                   <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 bg-secondary-light rounded-lg flex items-center justify-center">
+                    <div className="w-8 h-8 bg-secondary-medium rounded-lg flex items-center justify-center">
                       <FontAwesomeIcon icon={faUser} className="text-secondary-darker text-sm" aria-hidden="true" />
                     </div>
-                    <h2 className={`${UI_CONFIG.TYPOGRAPHY.headings.h3} text-text-primary mb-0`}>
+                    <h2 className={`${UI_CONFIG.TYPOGRAPHY.headings.h4} text-text-primary mb-0`}>
                       About Me
                     </h2>
                   </div>
@@ -599,23 +670,10 @@ const ProfileCard = () => {
                   </button>
                 </div>
                 {bio ? (
-                  <div className="relative bg-gradient-to-br from-white via-background-secondary to-secondary-light/30 border-2 border-secondary-light rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden">
-                    {/* Decorative background pattern */}
-                    <div className="absolute inset-0 opacity-5">
-                      <div className="absolute top-0 right-0 w-32 h-32 bg-secondary rounded-full -translate-y-16 translate-x-16"></div>
-                      <div className="absolute bottom-0 left-0 w-24 h-24 bg-secondary-medium rounded-full translate-y-12 -translate-x-12"></div>
-                    </div>
-                    
-                    {/* Content area */}
-                    <div className="relative">
-                      <div className="absolute top-0 right-0 w-10 h-10 bg-gradient-to-br from-secondary-light to-secondary-medium rounded-full flex items-center justify-center shadow-md opacity-80">
-                        <FontAwesomeIcon icon={faFileAlt} className="text-secondary-darker text-sm" aria-hidden="true" />
-                      </div>
-                      
-                      <div id="bio-content" className="text-text-primary leading-relaxed pr-12">
-                        <div className="prose prose-base max-w-none [&>p:first-child]:mt-0 [&>p:last-child]:mb-0 [&>p]:mb-4 [&>h1]:text-xl [&>h1]:font-bold [&>h1]:text-text-primary [&>h1]:mb-3 [&>h2]:text-lg [&>h2]:font-semibold [&>h2]:text-text-primary [&>h2]:mb-2 [&>h3]:text-base [&>h3]:font-medium [&>h3]:text-text-primary [&>h3]:mb-2 [&>ul]:list-disc [&>ul]:pl-5 [&>ol]:list-decimal [&>ol]:pl-5 [&>li]:mb-1 [&>strong]:font-semibold [&>em]:italic [&>a]:text-secondary-dark [&>a]:underline [&>a:hover]:text-secondary-darker">
-                          {parse(bio)}
-                        </div>
+                  <div className="p-4 bg-background-primary border border-border-light rounded-lg shadow-sm">
+                    <div id="bio-content" className="text-text-primary leading-relaxed">
+                      <div className="prose prose-base max-w-none [&>p:first-child]:mt-0 [&>p:last-child]:mb-0 [&>p]:mb-4 [&>h1]:text-xl [&>h1]:font-bold [&>h1]:text-text-primary [&>h1]:mb-3 [&>h2]:text-lg [&>h2]:font-semibold [&>h2]:text-text-primary [&>h2]:mb-2 [&>h3]:text-base [&>h3]:font-medium [&>h3]:text-text-primary [&>h3]:mb-2 [&>ul]:list-disc [&>ul]:pl-5 [&>ol]:list-decimal [&>ol]:pl-5 [&>li]:mb-1 [&>strong]:font-semibold [&>em]:italic [&>a]:text-secondary-dark [&>a]:underline [&>a:hover]:text-secondary-darker">
+                        {parse(bio)}
                       </div>
                     </div>
                   </div>
@@ -637,37 +695,83 @@ const ProfileCard = () => {
           </div>
 
           {/* My Activity Section */}
-          <div className="mt-8 pt-6 border-t border-border-light">
+          <div className="mt-8 p-5 bg-background-secondary border border-border-light rounded-xl shadow-sm">
             <div className="flex items-center gap-3 mb-4">
-              <div className="w-6 h-6 bg-secondary-medium rounded-lg flex items-center justify-center">
-                <svg className="w-4 h-4 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+              <div className="w-8 h-8 bg-secondary-medium rounded-lg flex items-center justify-center">
+                <svg className="w-5 h-5 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M7 12l3-3 3 3 4-4M8 21l4-4 4 4M3 4h18M4 4h16v12a1 1 0 01-1 1H5a1 1 0 01-1-1V4z" />
                 </svg>
               </div>
-              <h3 className={`${UI_CONFIG.TYPOGRAPHY.headings.h3} text-text-primary mb-0`}>My Activity</h3>
+              <h3 className={`${UI_CONFIG.TYPOGRAPHY.headings.h4} text-text-primary mb-0`}>My Activity</h3>
             </div>
             
             <div className="grid grid-cols-3 gap-4">
-              <div className="text-center p-4 bg-background-secondary border border-border-light rounded-lg shadow-sm">
+              <div className="text-center p-4 bg-background-primary border border-border-light rounded-lg shadow-sm">
                 <div className="text-2xl font-bold text-text-primary mb-1">12</div>
                 <div className="text-sm text-text-secondary font-medium">Blog Posts</div>
               </div>
               
-              <div className="text-center p-4 bg-background-secondary border border-border-light rounded-lg shadow-sm">
+              <div className="text-center p-4 bg-background-primary border border-border-light rounded-lg shadow-sm">
                 <div className="text-2xl font-bold text-text-primary mb-1">156</div>
                 <div className="text-sm text-text-secondary font-medium">Meals Logged</div>
               </div>
               
-              <div className="text-center p-4 bg-background-secondary border border-border-light rounded-lg shadow-sm">
+              <div className="text-center p-4 bg-background-primary border border-border-light rounded-lg shadow-sm">
                 <div className="text-2xl font-bold text-text-primary mb-1">8</div>
                 <div className="text-sm text-text-secondary font-medium">Recipes</div>
+              </div>
+            </div>
+          </div>
+
+            {/* Glucose Tracking Overview */}
+            <div className="mt-8 p-5 bg-background-secondary border border-border-light rounded-xl shadow-sm">
+              <div className="flex items-center gap-3 mb-4">
+                <div className="w-8 h-8 bg-secondary-medium rounded-lg flex items-center justify-center">
+                  <svg className="w-5 h-5 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M4.318 6.318a4.5 4.5 0 000 6.364L12 20.364l7.682-7.682a4.5 4.5 0 00-6.364-6.364L12 7.636l-1.318-1.318a4.5 4.5 0 00-6.364 0z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6V4m0 2v2m0-2h2m-2 0H10" />
+                  </svg>
+                </div>
+                <h4 className={`${UI_CONFIG.TYPOGRAPHY.headings.h4} text-text-primary mb-0`}>Glucose Tracking Overview</h4>
+              </div>
+              
+              <div className="grid grid-cols-3 gap-4">
+                <div className="text-center p-4 bg-background-primary border border-border-light rounded-lg shadow-sm">
+                  <div className="text-2xl font-bold text-text-primary mb-1">{glucoseStats.average || '--'}</div>
+                  <div className="text-sm text-text-secondary font-medium">Avg Glucose</div>
+                  <div className="text-xs text-text-tertiary">mg/dL</div>
+                </div>
+                
+                <div className="text-center p-4 bg-background-primary border border-border-light rounded-lg shadow-sm">
+                  <div className="text-2xl font-bold text-text-primary mb-1">{glucoseStats.lastReading || '--'}</div>
+                  <div className="text-sm text-text-secondary font-medium">Last Reading</div>
+                  <div className="text-xs text-text-tertiary">mg/dL</div>
+                </div>
+                
+                <div className="text-center p-4 bg-background-primary border border-border-light rounded-lg shadow-sm">
+                  <div className="text-2xl font-bold text-text-primary mb-1">{glucoseStats.timeInRange || '--'}%</div>
+                  <div className="text-sm text-text-secondary font-medium">Time in Range</div>
+                  <div className="text-xs text-text-tertiary">70-180 mg/dL</div>
+                </div>
+              </div>
+              
+              <div className="mt-4 text-center">
+                <button 
+                  onClick={() => navigate('/')}
+                  className="inline-flex items-center gap-2 px-4 py-2 bg-secondary-medium hover:bg-secondary text-text-primary rounded-lg transition-all duration-200 border border-border-light hover:border-secondary"
+                  aria-label="View detailed glucose tracking"
+                >
+                  <span>Track Glucose</span>
+                  <svg className="w-4 h-4" fill="none" stroke="currentColor" viewBox="0 0 24 24">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
+                  </svg>
+                </button>
               </div>
             </div>
           </div>
           </div>
         </div>
       </div>
-    </div>
   );
 };
 
