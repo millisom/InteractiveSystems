@@ -492,11 +492,11 @@ const ProfileCard = () => {
           <div className="flex items-start gap-4 mb-6">
             <div className="relative flex-shrink-0">
               <img
-                className="w-16 h-16 rounded-full object-cover border-3 border-white shadow-lg bg-background-secondary transition-transform duration-300 hover:scale-105"
-                src={previewDp || dpUrl || 'https://via.placeholder.com/96/898AC4/ffffff?text=👤'}
+                className="w-32 h-32 rounded-xl object-cover border-3 border-white shadow-lg bg-background-secondary transition-transform duration-300 hover:scale-105"
+                src={previewDp || dpUrl || 'https://via.placeholder.com/128x128/898AC4/ffffff?text=👤'}
                 alt={`${user || 'User'}'s profile picture`}
                 onError={(e) => {
-                  e.target.src = 'https://via.placeholder.com/96/898AC4/ffffff?text=👤';
+                  e.target.src = 'https://via.placeholder.com/128x128/898AC4/ffffff?text=👤';
                 }}
                 role="img"
                 loading="lazy"
@@ -505,11 +505,11 @@ const ProfileCard = () => {
               {!isEditingDp && (
                 <button 
                   onClick={() => setIsEditingDp(true)}
-                  className="absolute bottom-0 right-0 bg-secondary-dark hover:bg-secondary-darker text-white rounded-full w-6 h-6 p-0 min-w-[24px] min-h-[24px] shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2"
+                  className="absolute bottom-0 right-0 bg-secondary-dark hover:bg-secondary-darker text-white rounded-lg w-8 h-8 p-0 min-w-[32px] min-h-[32px] shadow-lg hover:shadow-xl transform hover:scale-110 transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-1"
                   aria-label="Edit profile picture"
                   type="button"
                 >
-                  <FontAwesomeIcon icon={faCamera} className="text-xs" aria-hidden="true" />
+                  <FontAwesomeIcon icon={faCamera} className="text-sm" aria-hidden="true" />
                 </button>
               )}
             </div>
