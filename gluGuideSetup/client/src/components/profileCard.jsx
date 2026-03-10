@@ -755,7 +755,7 @@ const ProfileCard = () => {
                 </div>
               </div>
               
-              <div className="mt-4 text-center">
+              {/* <div className="mt-4 text-center">
                 <button 
                   onClick={() => navigate('/')}
                   className="inline-flex items-center gap-2 px-4 py-2 bg-secondary-medium hover:bg-secondary text-text-primary rounded-lg transition-all duration-200 border border-border-light hover:border-secondary"
@@ -766,7 +766,7 @@ const ProfileCard = () => {
                     <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 5l7 7-7 7" />
                   </svg>
                 </button>
-              </div>
+              </div> */}
             </div>
           </div>
           </div>
