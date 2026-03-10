@@ -526,15 +526,15 @@ const ProfileCard = () => {
                     About Me
                   </h2>
                 </div>
-                <div className="bg-background-secondary rounded-xl border border-border-light p-4">
+                <div className="space-y-4">
                   <fieldset>
                     <legend className="sr-only">Edit your bio</legend>
-                    <div className="border-2 border-secondary-light rounded-xl overflow-hidden bg-white shadow-sm hover:border-secondary transition-colors duration-300">
+                    <div className="rounded-2xl overflow-hidden shadow-lg hover:shadow-xl focus-within:ring-4 focus-within:ring-secondary-light focus-within:ring-opacity-50 transition-all duration-300">
                       <ReactQuill 
                         value={currentBio} 
                         onChange={handleBioChange}
                         modules={quillModules}
-                        className="bg-white"
+                        className="[&_.ql-container]:border-0 [&_.ql-editor]:min-h-[120px] [&_.ql-editor]:text-base [&_.ql-editor]:leading-relaxed [&_.ql-editor]:p-6 [&_.ql-toolbar]:border-b-2 [&_.ql-toolbar]:border-secondary-light [&_.ql-toolbar]:bg-gradient-to-r [&_.ql-toolbar]:from-secondary-light [&_.ql-toolbar]:to-background-secondary [&_.ql-toolbar]:px-6 [&_.ql-toolbar]:py-3"
                         placeholder="Tell us about yourself..."
                         aria-label="Bio editor"
                       />
@@ -583,22 +583,32 @@ const ProfileCard = () => {
                   </div>
                   <button 
                     onClick={handleBioEditToggle}
-                    className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-secondary-dark hover:text-secondary-darker bg-gradient-to-r from-secondary-light to-secondary-medium hover:from-secondary-medium hover:to-secondary-dark border-2 border-secondary-light hover:border-secondary rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 min-w-[44px] min-h-[44px] transform hover:scale-105 shadow-sm"
+                    className="flex items-center gap-2 px-3 py-2 text-sm text-secondary-dark hover:text-secondary-darker hover:bg-secondary-light rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-1 min-w-[44px] min-h-[44px]"
                     aria-label="Edit bio section"
                     type="button"
                   >
                     <FontAwesomeIcon icon={faEdit} className="text-sm" aria-hidden="true" />
-                    <span className="hidden sm:inline">Edit</span>
+                    <span className="hidden sm:inline font-medium">Edit</span>
                   </button>
                 </div>
                 {bio ? (
-                  <div className="relative bg-gradient-to-br from-background-secondary to-background-primary border-2 border-secondary-light rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
-                    <div className="absolute top-4 right-4 w-8 h-8 bg-secondary-light rounded-full flex items-center justify-center opacity-60">
-                      <FontAwesomeIcon icon={faFileAlt} className="text-secondary-darker text-xs" aria-hidden="true" />
+                  <div className="relative bg-gradient-to-br from-white via-background-secondary to-secondary-light/30 border-2 border-secondary-light rounded-2xl p-8 shadow-xl hover:shadow-2xl transition-all duration-500 overflow-hidden">
+                    {/* Decorative background pattern */}
+                    <div className="absolute inset-0 opacity-5">
+                      <div className="absolute top-0 right-0 w-32 h-32 bg-secondary rounded-full -translate-y-16 translate-x-16"></div>
+                      <div className="absolute bottom-0 left-0 w-24 h-24 bg-secondary-medium rounded-full translate-y-12 -translate-x-12"></div>
                     </div>
-                    <div id="bio-content" className="text-text-primary leading-relaxed pr-10">
-                      <div className="prose prose-sm max-w-none">
-                        {parse(bio)}
+                    
+                    {/* Content area */}
+                    <div className="relative">
+                      <div className="absolute top-0 right-0 w-10 h-10 bg-gradient-to-br from-secondary-light to-secondary-medium rounded-full flex items-center justify-center shadow-md opacity-80">
+                        <FontAwesomeIcon icon={faFileAlt} className="text-secondary-darker text-sm" aria-hidden="true" />
+                      </div>
+                      
+                      <div id="bio-content" className="text-text-primary leading-relaxed pr-12">
+                        <div className="prose prose-base max-w-none [&>p:first-child]:mt-0 [&>p:last-child]:mb-0 [&>p]:mb-4 [&>h1]:text-xl [&>h1]:font-bold [&>h1]:text-text-primary [&>h1]:mb-3 [&>h2]:text-lg [&>h2]:font-semibold [&>h2]:text-text-primary [&>h2]:mb-2 [&>h3]:text-base [&>h3]:font-medium [&>h3]:text-text-primary [&>h3]:mb-2 [&>ul]:list-disc [&>ul]:pl-5 [&>ol]:list-decimal [&>ol]:pl-5 [&>li]:mb-1 [&>strong]:font-semibold [&>em]:italic [&>a]:text-secondary-dark [&>a]:underline [&>a:hover]:text-secondary-darker">
+                          {parse(bio)}
+                        </div>
                       </div>
                     </div>
                   </div>
