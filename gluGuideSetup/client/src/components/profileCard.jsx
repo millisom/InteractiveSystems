@@ -298,118 +298,125 @@ const ProfileCard = () => {
         </div>
       )}
 
-      {/* Main Dashboard Grid */}
-      <div className="grid lg:grid-cols-2 gap-6 items-start">
-        {/* Left Column - Quick Navigation and Account Settings */}
-        <div className="space-y-6">
-          {/* Quick Actions Card */}
-          <article className={`${COMMON_CLASSES.CARD_BASE} p-6`}>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-8 bg-secondary-light rounded-lg flex items-center justify-center">
-                <svg className="w-5 h-5 text-secondary-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
-                </svg>
+      {/* Main Unified Dashboard */}
+      <div className="bg-white rounded-3xl shadow-xl border border-border-light overflow-hidden">
+        <div className="grid lg:grid-cols-3 gap-0">
+          {/* Left Sidebar - Navigation & Settings */}
+          <div className="lg:border-r border-border-light bg-gradient-to-b from-background-secondary to-white p-8">
+            {/* Quick Navigation */}
+            <div className="mb-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-8 bg-secondary-light rounded-lg flex items-center justify-center">
+                  <svg className="w-5 h-5 text-secondary-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M13 10V3L4 14h7v7l9-11h-7z" />
+                  </svg>
+                </div>
+                <h2 id="quick-nav-heading" className={`${UI_CONFIG.TYPOGRAPHY.headings.h4} mb-0 text-text-primary`}>
+                  Quick Navigation
+                </h2>
               </div>
-              <h2 id="quick-nav-heading" className={`${UI_CONFIG.TYPOGRAPHY.headings.h3} mb-0`}>
-                Quick Navigation
-              </h2>
-            </div>
-            
-            <div className="grid grid-cols-2 gap-3" role="navigation" aria-labelledby="quick-nav-heading">
-              {/* My Blogs Navigation */}
-              <button
-                onClick={() => navigate('/myBlogs')}
-                className="group flex flex-col items-center p-4 text-center bg-gradient-to-br from-secondary-light to-secondary-medium hover:from-secondary-medium hover:to-secondary-dark border-2 border-secondary-light hover:border-secondary rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 min-h-[100px] transform hover:scale-105 active:scale-95"
-                type="button"
-              >
-                <div className="w-8 h-8 bg-secondary-medium group-hover:bg-secondary rounded-lg flex items-center justify-center mb-2 transition-colors duration-300">
-                  <svg className="w-4 h-4 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                  </svg>
-                </div>
-                <h3 className="font-semibold text-secondary-darker text-sm mb-1">My Blogs</h3>
-                <p className="text-xs text-secondary-dark group-hover:text-secondary-darker">Write & manage</p>
-              </button>
+              
+              <div className="space-y-3" role="navigation" aria-labelledby="quick-nav-heading">
+                {/* My Blogs Navigation */}
+                <button
+                  onClick={() => navigate('/myBlogs')}
+                  className="w-full group flex items-center gap-4 p-4 text-left bg-gradient-to-r from-secondary-light/50 to-transparent hover:from-secondary-light hover:to-secondary-light/50 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-1"
+                  type="button"
+                >
+                  <div className="w-10 h-10 bg-secondary-medium group-hover:bg-secondary rounded-lg flex items-center justify-center transition-colors duration-300 flex-shrink-0">
+                    <svg className="w-5 h-5 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-secondary-darker text-sm mb-1">My Blogs</h3>
+                    <p className="text-xs text-secondary-dark group-hover:text-secondary-darker">Write & manage posts</p>
+                  </div>
+                </button>
 
-              {/* Log Meal Navigation */}
-              <button
-                onClick={() => navigate('/logMeal')}
-                className="group flex flex-col items-center p-4 text-center bg-gradient-to-br from-secondary-light to-secondary-medium hover:from-secondary-medium hover:to-secondary-dark border-2 border-secondary-light hover:border-secondary rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 min-h-[100px] transform hover:scale-105 active:scale-95"
-                type="button"
-              >
-                <div className="w-8 h-8 bg-secondary-medium group-hover:bg-secondary rounded-lg flex items-center justify-center mb-2 transition-colors duration-300">
-                  <svg className="w-4 h-4 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                  </svg>
-                </div>
-                <h3 className="font-semibold text-secondary-darker text-sm mb-1">Log Meal</h3>
-                <p className="text-xs text-secondary-dark group-hover:text-secondary-darker">Track nutrition</p>
-              </button>
+                {/* Log Meal Navigation */}
+                <button
+                  onClick={() => navigate('/logMeal')}
+                  className="w-full group flex items-center gap-4 p-4 text-left bg-gradient-to-r from-secondary-light/50 to-transparent hover:from-secondary-light hover:to-secondary-light/50 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-1"
+                  type="button"
+                >
+                  <div className="w-10 h-10 bg-secondary-medium group-hover:bg-secondary rounded-lg flex items-center justify-center transition-colors duration-300 flex-shrink-0">
+                    <svg className="w-5 h-5 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-secondary-darker text-sm mb-1">Log Meal</h3>
+                    <p className="text-xs text-secondary-dark group-hover:text-secondary-darker">Track nutrition</p>
+                  </div>
+                </button>
 
-              {/* Meals Overview Navigation */}
-              <button
-                onClick={() => navigate('/mealsOverview')}
-                className="group flex flex-col items-center p-4 text-center bg-gradient-to-br from-secondary-light to-secondary-medium hover:from-secondary-medium hover:to-secondary-dark border-2 border-secondary-light hover:border-secondary rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 min-h-[100px] transform hover:scale-105 active:scale-95"
-                type="button"
-              >
-                <div className="w-8 h-8 bg-secondary-medium group-hover:bg-secondary rounded-lg flex items-center justify-center mb-2 transition-colors duration-300">
-                  <svg className="w-4 h-4 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
-                  </svg>
-                </div>
-                <h3 className="font-semibold text-secondary-darker text-sm mb-1">Overview</h3>
-                <p className="text-xs text-secondary-dark group-hover:text-secondary-darker">Review history</p>
-              </button>
+                {/* Meals Overview Navigation */}
+                <button
+                  onClick={() => navigate('/mealsOverview')}
+                  className="w-full group flex items-center gap-4 p-4 text-left bg-gradient-to-r from-secondary-light/50 to-transparent hover:from-secondary-light hover:to-secondary-light/50 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-1"
+                  type="button"
+                >
+                  <div className="w-10 h-10 bg-secondary-medium group-hover:bg-secondary rounded-lg flex items-center justify-center transition-colors duration-300 flex-shrink-0">
+                    <svg className="w-5 h-5 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-secondary-darker text-sm mb-1">Overview</h3>
+                    <p className="text-xs text-secondary-dark group-hover:text-secondary-darker">Review history</p>
+                  </div>
+                </button>
 
-              {/* Recipes Navigation */}
-              <button
-                onClick={() => navigate('/Recipes')}
-                className="group flex flex-col items-center p-4 text-center bg-gradient-to-br from-secondary-light to-secondary-medium hover:from-secondary-medium hover:to-secondary-dark border-2 border-secondary-light hover:border-secondary rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 min-h-[100px] transform hover:scale-105 active:scale-95"
-                type="button"
-              >
-                <div className="w-8 h-8 bg-secondary-medium group-hover:bg-secondary rounded-lg flex items-center justify-center mb-2 transition-colors duration-300">
-                  <svg className="w-4 h-4 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                </div>
-                <h3 className="font-semibold text-secondary-darker text-sm mb-1">Recipes</h3>
-                <p className="text-xs text-secondary-dark group-hover:text-secondary-darker">Discover meals</p>
-              </button>
-            </div>
-          </article>
-
-          {/* Account Settings Card */}
-          <article className={`${COMMON_CLASSES.CARD_BASE} p-6`}>
-            <div className="flex items-center gap-3 mb-6">
-              <div className="w-8 h-8 bg-secondary-light rounded-lg flex items-center justify-center">
-                <svg className="w-5 h-5 text-secondary-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
-                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                </svg>
+                {/* Recipes Navigation */}
+                <button
+                  onClick={() => navigate('/Recipes')}
+                  className="w-full group flex items-center gap-4 p-4 text-left bg-gradient-to-r from-secondary-light/50 to-transparent hover:from-secondary-light hover:to-secondary-light/50 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-1"
+                  type="button"
+                >
+                  <div className="w-10 h-10 bg-secondary-medium group-hover:bg-secondary rounded-lg flex items-center justify-center transition-colors duration-300 flex-shrink-0">
+                    <svg className="w-5 h-5 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-secondary-darker text-sm mb-1">Recipes</h3>
+                    <p className="text-xs text-secondary-dark group-hover:text-secondary-darker">Discover meals</p>
+                  </div>
+                </button>
               </div>
-              <h2 className={`${UI_CONFIG.TYPOGRAPHY.headings.h3} mb-0`}>Account Settings</h2>
             </div>
-            
-            <div className="space-y-3">
+
+            {/* Account Settings */}
+            <div className="border-t border-border-light pt-8">
+              <div className="flex items-center gap-3 mb-6">
+                <div className="w-8 h-8 bg-secondary-light rounded-lg flex items-center justify-center">
+                  <svg className="w-5 h-5 text-secondary-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M10.325 4.317c.426-1.756 2.924-1.756 3.35 0a1.724 1.724 0 002.573 1.066c1.543-.94 3.31.826 2.37 2.37a1.724 1.724 0 001.065 2.572c1.756.426 1.756 2.924 0 3.35a1.724 1.724 0 00-1.066 2.573c.94 1.543-.826 3.31-2.37 2.37a1.724 1.724 0 00-2.572 1.065c-.426 1.756-2.924 1.756-3.35 0a1.724 1.724 0 00-2.573-1.066c-1.543.94-3.31-.826-2.37-2.37a1.724 1.724 0 00-1.065-2.572c-1.756-.426-1.756-2.924 0-3.35a1.724 1.724 0 001.066-2.573c-.94-1.543.826-3.31 2.37-2.37.996.608 2.296.07 2.572-1.065z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
+                  </svg>
+                </div>
+                <h2 className={`${UI_CONFIG.TYPOGRAPHY.headings.h4} mb-0 text-text-primary`}>Account Settings</h2>
+              </div>
+              
               <button 
                 onClick={handleDeleteAccount}
-                className="w-full flex items-center gap-3 p-4 text-left text-error-dark hover:bg-error-light border-2 border-error-light hover:border-error rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-error focus:ring-offset-2 transform hover:scale-105"
+                className="w-full flex items-center gap-3 p-4 text-left text-error-dark hover:bg-error-light/50 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-error focus:ring-offset-1"
                 type="button"
               >
-                <div className="w-10 h-10 bg-error rounded-lg flex items-center justify-center">
+                <div className="w-10 h-10 bg-error rounded-lg flex items-center justify-center flex-shrink-0">
                   <FontAwesomeIcon icon={faTrashAlt} className="text-white" />
                 </div>
-                <div className="flex-1">
-                  <span className="text-sm font-semibold text-error-dark">Delete Account</span>
-                  <p className="text-xs text-error">Permanently remove your account</p>
+                <div>
+                  <span className="text-sm font-semibold text-error-dark block">Delete Account</span>
+                  <p className="text-xs text-error">Permanently remove account</p>
                 </div>
               </button>
             </div>
-          </article>
-        </div>
+          </div>
 
-        {/* Right Column - Profile & About Me */}
-        <article className={`${COMMON_CLASSES.CARD_BASE} p-6`} aria-labelledby="profile-bio-heading">
+          {/* Main Content Area - Profile & About */}
+          <div className="lg:col-span-2 p-8">
           {/* Profile Header with Picture and Name */}
           <div className="flex items-start gap-4 mb-6">
             <div className="relative flex-shrink-0">
@@ -657,7 +664,8 @@ const ProfileCard = () => {
               </div>
             </div>
           </div>
-        </article>
+          </div>
+        </div>
       </div>
     </div>
   );
