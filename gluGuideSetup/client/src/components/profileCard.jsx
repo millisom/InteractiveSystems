@@ -11,8 +11,10 @@ import {
   UI_CONFIG, 
   COLORS, 
   ACCESSIBILITY, 
-  APP_CONFIG 
+  APP_CONFIG,
+  NOTIFICATIONS 
 } from '../constants/index.js';
+import useAutoDismiss from '../hooks/useAutoDismiss.js';
 
 const ProfileCard = () => {
   const [user, setUser] = useState(null);
@@ -31,6 +33,10 @@ const ProfileCard = () => {
   const navigate = useNavigate();
 
   const maxBioLength = 500;
+
+  // Auto-dismiss messages using universal hook
+  useAutoDismiss(error, setError, NOTIFICATIONS.TYPES.ERROR);
+  useAutoDismiss(successMessage, setSuccessMessage, NOTIFICATIONS.TYPES.SUCCESS);
 
   useEffect(() => {
     const fetchUserData = async () => {
@@ -472,22 +478,24 @@ const ProfileCard = () => {
                 </div>
               </fieldset>
               
-              <div className="flex gap-2 justify-center" role="group" aria-label="Profile picture actions">
+              <div className="flex gap-3 justify-center" role="group" aria-label="Profile picture actions">
                 <button 
                   onClick={handleSaveDp} 
                   disabled={!selectedDpFile || isUploading}
-                  className="bg-success hover:bg-success-dark disabled:bg-text-tertiary text-white text-xs px-4 py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-success focus:ring-offset-2 font-semibold"
+                  className="px-6 py-2.5 bg-gradient-to-r from-success to-success-dark hover:from-success-dark hover:to-success disabled:bg-gray-400 disabled:from-gray-400 disabled:to-gray-500 text-white text-sm font-semibold rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-success focus:ring-offset-2 transform hover:scale-105 disabled:transform-none shadow-lg disabled:shadow-none disabled:cursor-not-allowed"
                   type="button"
                 >
-                  {isUploading ? 'Saving...' : 'Save'}
+                  <FontAwesomeIcon icon={faSave} className="mr-2" aria-hidden="true" />
+                  {isUploading ? 'Saving...' : 'Save Picture'}
                 </button>
                 
                 <button 
                   onClick={handleCancelDpEdit}
                   disabled={isUploading}
-                  className="bg-text-secondary hover:bg-text-primary text-white text-xs px-4 py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-text-secondary focus:ring-offset-2 font-semibold"
+                  className="px-6 py-2.5 bg-gradient-to-r from-text-secondary to-text-primary hover:from-text-primary hover:to-text-secondary text-white text-sm font-semibold rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-text-secondary focus:ring-offset-2 transform hover:scale-105 shadow-lg"
                   type="button"
                 >
+                  <FontAwesomeIcon icon={faTimes} className="mr-2" aria-hidden="true" />
                   Cancel
                 </button>
                 
@@ -495,9 +503,10 @@ const ProfileCard = () => {
                   <button 
                     onClick={handleDeleteDp} 
                     disabled={isUploading}
-                    className="bg-error hover:bg-error-dark text-white text-xs px-4 py-2 rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-error focus:ring-offset-2 font-semibold"
+                    className="px-6 py-2.5 bg-gradient-to-r from-error to-error-dark hover:from-error-dark hover:to-error text-white text-sm font-semibold rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-error focus:ring-offset-2 transform hover:scale-105 shadow-lg"
                     type="button"
                   >
+                    <FontAwesomeIcon icon={faTrashAlt} className="mr-2" aria-hidden="true" />
                     Delete
                   </button>
                 )}
@@ -618,7 +627,7 @@ const ProfileCard = () => {
                   <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 19v-6a2 2 0 00-2-2H5a2 2 0 00-2 2v6a2 2 0 002 2h2a2 2 0 002-2zm0 0V9a2 2 0 012-2h2a2 2 0 012 2v10m-6 0a2 2 0 002 2h2a2 2 0 002-2m0 0V5a2 2 0 012-2h2a2 2 0 012 2v14a2 2 0 01-2 2h-2a2 2 0 01-2-2z" />
                 </svg>
               </div>
-              <h3 className={`${UI_CONFIG.TYPOGRAPHY.headings.h4} text-text-primary mb-0`}>My Activity</h3>
+              <h3 className={`${UI_CONFIG.TYPOGRAPHY.headings.h3} text-text-primary mb-0`}>My Activity</h3>
             </div>
             
             <div className="grid grid-cols-3 gap-4">
