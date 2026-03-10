@@ -416,10 +416,29 @@ const ProfileCard = () => {
                     </svg>
                   </div>
                   <div>
-                    <h3 className="font-semibold text-secondary-darker text-sm mb-1">Overview</h3>
+                    <h3 className="font-semibold text-secondary-darker text-sm mb-1">Meals Overview</h3>
                     <p className="text-xs text-secondary-dark group-hover:text-secondary-darker">Review history</p>
                   </div>
                 </button>
+
+                {/* Create Recipe Navigation */}
+                <button
+                  onClick={() => navigate('/createRecipe')}
+                  className="w-full group flex items-center gap-4 p-4 text-left bg-gradient-to-r from-secondary-light/50 to-transparent hover:from-secondary-light hover:to-secondary-light/50 rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-1"
+                  type="button"
+                >
+                  <div className="w-10 h-10 bg-secondary-medium group-hover:bg-secondary rounded-lg flex items-center justify-center transition-colors duration-300 flex-shrink-0">
+                    <svg className="w-5 h-5 text-secondary-darker" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
+                      <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
+                      <circle cx="12" cy="12" r="10" strokeWidth={1.5} />
+                    </svg>
+                  </div>
+                  <div>
+                    <h3 className="font-semibold text-secondary-darker text-sm mb-1">Create Recipe</h3>
+                    <p className="text-xs text-secondary-dark group-hover:text-secondary-darker">Add new recipe</p>
+                  </div>
+                </button>
+
 
                 {/* Recipes Navigation */}
                 <button
