@@ -425,78 +425,104 @@ const ProfileCard = () => {
           </div>
 
           {/* About Me Bio Section */}
-          <div className="mt-6">
+          <div className="mt-8 pt-6 border-t border-border-light">
             {isEditingBio ? (
-              <div className="space-y-4">
-                <div className="flex items-center justify-between mb-4">
-                  <h2 id="profile-bio-heading" className={`${UI_CONFIG.TYPOGRAPHY.headings.h4} text-text-primary mb-0`}>
+              <div className="space-y-6">
+                <div className="flex items-center gap-3 mb-6">
+                  <div className="w-8 h-8 bg-secondary-light rounded-lg flex items-center justify-center">
+                    <FontAwesomeIcon icon={faUser} className="text-secondary-darker text-sm" aria-hidden="true" />
+                  </div>
+                  <h2 id="profile-bio-heading" className={`${UI_CONFIG.TYPOGRAPHY.headings.h3} text-text-primary mb-0`}>
                     About Me
                   </h2>
                 </div>
-                <fieldset>
-                <legend className="sr-only">Edit your bio</legend>
-                <div className="border border-border-light rounded-lg overflow-hidden">
-                  <ReactQuill 
-                    value={currentBio} 
-                    onChange={handleBioChange}
-                    modules={quillModules}
-                    className="bg-white"
-                    placeholder="Tell us about yourself..."
-                    aria-label="Bio editor"
-                  />
+                <div className="bg-background-secondary rounded-xl border border-border-light p-4">
+                  <fieldset>
+                    <legend className="sr-only">Edit your bio</legend>
+                    <div className="border-2 border-secondary-light rounded-xl overflow-hidden bg-white shadow-sm hover:border-secondary transition-colors duration-300">
+                      <ReactQuill 
+                        value={currentBio} 
+                        onChange={handleBioChange}
+                        modules={quillModules}
+                        className="bg-white"
+                        placeholder="Tell us about yourself..."
+                        aria-label="Bio editor"
+                      />
+                    </div>
+                  </fieldset>
                 </div>
-              </fieldset>
               
-              <div className="flex items-center justify-between">
-                <p className={`text-sm ${bioCharCount > maxBioLength ? 'text-error' : 'text-text-tertiary'}`}>
-                  {bioCharCount}/{maxBioLength} characters
-                </p>
+              <div className="flex items-center justify-between bg-background-secondary rounded-lg p-3 border border-border-light">
+                <div className="flex items-center gap-2">
+                  <div className={`w-2 h-2 rounded-full ${bioCharCount > maxBioLength ? 'bg-error' : bioCharCount > maxBioLength * 0.8 ? 'bg-warning' : 'bg-success'}`}></div>
+                  <p className={`text-sm font-medium ${bioCharCount > maxBioLength ? 'text-error' : 'text-text-secondary'}`}>
+                    {bioCharCount}/{maxBioLength} characters
+                  </p>
+                </div>
                 
-                <div className="flex gap-2">
+                <div className="flex gap-3">
                   <button 
                     onClick={handleSaveBio}
-                    className="px-4 py-2 bg-success hover:bg-success-dark text-white text-sm rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-success focus:ring-offset-2"
+                    className="px-6 py-2.5 bg-gradient-to-r from-success to-success-dark hover:from-success-dark hover:to-success text-white text-sm font-semibold rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-success focus:ring-offset-2 transform hover:scale-105 shadow-lg"
                     type="button"
                   >
+                    <FontAwesomeIcon icon={faSave} className="mr-2" aria-hidden="true" />
                     Save Bio
                   </button>
                   <button 
                     onClick={handleBioEditToggle}
-                    className="px-4 py-2 bg-text-secondary hover:bg-text-primary text-white text-sm rounded-lg transition-colors focus:outline-none focus:ring-2 focus:ring-text-secondary focus:ring-offset-2"
+                    className="px-6 py-2.5 bg-gradient-to-r from-text-secondary to-text-primary hover:from-text-primary hover:to-text-secondary text-white text-sm font-semibold rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-text-secondary focus:ring-offset-2 transform hover:scale-105 shadow-lg"
                     type="button"
                   >
+                    <FontAwesomeIcon icon={faTimes} className="mr-2" aria-hidden="true" />
                     Cancel
                   </button>
                 </div>
               </div>
             </div>
             ) : (
-              <div>
-                <div className="flex items-center justify-between mb-4">
-                  <h2 className={`${UI_CONFIG.TYPOGRAPHY.headings.h4} text-text-primary mb-0`}>
-                    About Me
-                  </h2>
+              <div className="space-y-4">
+                <div className="flex items-center justify-between mb-6">
+                  <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 bg-secondary-light rounded-lg flex items-center justify-center">
+                      <FontAwesomeIcon icon={faUser} className="text-secondary-darker text-sm" aria-hidden="true" />
+                    </div>
+                    <h2 className={`${UI_CONFIG.TYPOGRAPHY.headings.h3} text-text-primary mb-0`}>
+                      About Me
+                    </h2>
+                  </div>
                   <button 
                     onClick={handleBioEditToggle}
-                    className="flex items-center gap-2 px-3 py-2 text-sm font-medium text-text-secondary hover:text-text-primary hover:bg-background-secondary rounded-lg transition-all duration-200 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 min-w-[44px] min-h-[44px]"
+                    className="flex items-center gap-2 px-4 py-2.5 text-sm font-semibold text-secondary-dark hover:text-secondary-darker bg-gradient-to-r from-secondary-light to-secondary-medium hover:from-secondary-medium hover:to-secondary-dark border-2 border-secondary-light hover:border-secondary rounded-xl transition-all duration-300 focus:outline-none focus:ring-2 focus:ring-secondary focus:ring-offset-2 min-w-[44px] min-h-[44px] transform hover:scale-105 shadow-sm"
                     aria-label="Edit bio section"
                     type="button"
                   >
                     <FontAwesomeIcon icon={faEdit} className="text-sm" aria-hidden="true" />
-                    Edit
+                    <span className="hidden sm:inline">Edit</span>
                   </button>
                 </div>
                 {bio ? (
-                  <div className="bg-background-secondary border border-border-light rounded-xl p-4 shadow-sm">
-                    <div id="bio-content" className="text-text-primary leading-relaxed text-sm">
-                      {parse(bio)}
+                  <div className="relative bg-gradient-to-br from-background-secondary to-background-primary border-2 border-secondary-light rounded-xl p-6 shadow-lg hover:shadow-xl transition-all duration-300">
+                    <div className="absolute top-4 right-4 w-8 h-8 bg-secondary-light rounded-full flex items-center justify-center opacity-60">
+                      <FontAwesomeIcon icon={faFileAlt} className="text-secondary-darker text-xs" aria-hidden="true" />
+                    </div>
+                    <div id="bio-content" className="text-text-primary leading-relaxed pr-10">
+                      <div className="prose prose-sm max-w-none">
+                        {parse(bio)}
+                      </div>
                     </div>
                   </div>
                 ) : (
-                  <div className="text-text-tertiary italic py-6 text-center border-2 border-dashed border-border-light rounded-xl bg-background-secondary hover:border-secondary transition-colors duration-200">
-                    <FontAwesomeIcon icon={faFileAlt} className="text-3xl mb-3 text-secondary-medium" aria-hidden="true" />
-                    <p className="font-semibold text-secondary-dark mb-1">No bio added yet</p>
-                    <p className="text-sm text-secondary">Click Edit to share something about yourself</p>
+                  <div className="group text-text-tertiary py-8 text-center border-2 border-dashed border-secondary-light rounded-xl bg-gradient-to-br from-background-secondary to-secondary-light hover:border-secondary hover:bg-gradient-to-br hover:from-secondary-light hover:to-secondary-medium transition-all duration-300 cursor-pointer" onClick={handleBioEditToggle}>
+                    <div className="flex flex-col items-center space-y-4">
+                      <div className="w-16 h-16 bg-secondary-medium rounded-full flex items-center justify-center group-hover:bg-secondary-dark transition-colors duration-300">
+                        <FontAwesomeIcon icon={faFileAlt} className="text-2xl text-secondary-darker group-hover:text-white" aria-hidden="true" />
+                      </div>
+                      <div className="space-y-2">
+                        <p className="font-bold text-lg text-secondary-dark group-hover:text-secondary-darker">No bio added yet</p>
+                        <p className="text-sm text-secondary group-hover:text-secondary-dark max-w-md mx-auto">Share your story, interests, and what makes you unique. Click here or the edit button to get started!</p>
+                      </div>
+                    </div>
                   </div>
                 )}
               </div>

@@ -63,7 +63,7 @@ export const UI_CONFIG = {
       position: 'fixed bottom-0 left-0 right-0',
       zIndex: 'z-40',
       padding: 'px-4 py-4',
-      shadow: 'shadow-lg border-t border-secondary-dark',
+      shadow: 'shadow-wcag',
     },
     main: {
       padding: 'pb-20 mb-4',
