@@ -642,31 +642,16 @@ const ProfileCard = () => {
             
             <div className="grid grid-cols-3 gap-4">
               <div className="text-center p-4 bg-background-secondary border border-border-light rounded-lg shadow-sm">
-                <div className="w-10 h-10 bg-info-light rounded-full flex items-center justify-center mx-auto mb-3">
-                  <svg className="w-5 h-5 text-info-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732z" />
-                  </svg>
-                </div>
                 <div className="text-2xl font-bold text-text-primary mb-1">12</div>
                 <div className="text-sm text-text-secondary font-medium">Blog Posts</div>
               </div>
               
               <div className="text-center p-4 bg-background-secondary border border-border-light rounded-lg shadow-sm">
-                <div className="w-10 h-10 bg-success-light rounded-full flex items-center justify-center mx-auto mb-3">
-                  <svg className="w-5 h-5 text-success-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6v6m0 0v6m0-6h6m-6 0H6" />
-                  </svg>
-                </div>
                 <div className="text-2xl font-bold text-text-primary mb-1">156</div>
                 <div className="text-sm text-text-secondary font-medium">Meals Logged</div>
               </div>
               
               <div className="text-center p-4 bg-background-secondary border border-border-light rounded-lg shadow-sm">
-                <div className="w-10 h-10 bg-warning-light rounded-full flex items-center justify-center mx-auto mb-3">
-                  <svg className="w-5 h-5 text-warning-dark" fill="none" stroke="currentColor" viewBox="0 0 24 24" aria-hidden="true">
-                    <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 6.253v13m0-13C10.832 5.477 9.246 5 7.5 5S4.168 5.477 3 6.253v13C4.168 18.477 5.754 18 7.5 18s3.332.477 4.5 1.253m0-13C13.168 5.477 14.754 5 16.5 5c1.747 0 3.332.477 4.5 1.253v13C19.832 18.477 18.247 18 16.5 18c-1.746 0-3.332.477-4.5 1.253" />
-                  </svg>
-                </div>
                 <div className="text-2xl font-bold text-text-primary mb-1">8</div>
                 <div className="text-sm text-text-secondary font-medium">Recipes</div>
               </div>
